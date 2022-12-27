@@ -3,7 +3,7 @@ from random import shuffle
 import sys
 
 with open("in-file.txt", "r") as infile:
-    infile = ["borgar", "hotdog", "kebab", "taco"]
+    # infile = ["borgar", "hotdog", "kebab", "taco"]
     contenders = {k.rstrip():0 for k in infile}
 
 # print(contenders)
