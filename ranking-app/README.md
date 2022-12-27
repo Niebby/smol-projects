@@ -7,7 +7,6 @@ The results will be printed to standard output and to a file "out-file.txt" in t
 
 ### TODO (may or may not ever implement)
 * Option to reduce the number of matches in a fair way
-* Make ties take the same place in ranking
 * Option to go back and change an answer 
 * Pretty up the prompts
 * Add usage description to this README
