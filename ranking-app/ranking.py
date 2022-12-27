@@ -3,7 +3,7 @@ from random import shuffle
 import sys
 
 with open("in-file.txt", "r") as infile:
-    # infile = ["borgar", "hotdog", "kebab", "taco"]
+    infile = ["borgar", "hotdog", "kebab", "taco"]
     contenders = {k.rstrip():0 for k in infile}
 
 # print(contenders)
@@ -25,13 +25,24 @@ for i, matchup in enumerate(pairings):
             pass
     print("Voted for " + matchup[user_choice-1])
     contenders[matchup[user_choice-1]] += 1
-        
+    
+
+results = list([list(x) for x in enumerate(sorted(contenders.items(), key=lambda k: -k[1]))])
+
+i = len(results) - 1
+while i >= 1:
+    # if the number of wins of the current position is equal to
+    # the number of wins of the following position, then set the
+    # place number to be equal for both
+    if results[i][1][1] == results[i-1][1][1]:
+        results[i-1][0] = results[i][0]
+    i -= 1
+
+
 with open("out-file.txt", "w") as outfile:
     print("\n\n\n")
-    placement = 1
-    for k, v in sorted(contenders.items(), key=lambda k: -k[1]):
-        print_string = str(placement) + ". " + k + "   ("+ str(v) +  " wins - " + "{:.2f}".format(100*((len(contenders.keys())-1) and v / (len(contenders.keys())-1) or 0)) + "% won)\n"
+    for placement, entry in results:
+        print_string = str(placement+1) + ". " + entry[0] + "   ("+ str(entry[1]) +  " wins - " + "{:.2f}".format(100*((len(contenders.keys())-1) and entry[1] / (len(contenders.keys())-1) or 0)) + "% won)\n"
         outfile.write(print_string)
         print(print_string, end='')
         
-        placement += 1
